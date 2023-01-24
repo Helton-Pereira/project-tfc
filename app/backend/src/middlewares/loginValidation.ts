@@ -6,7 +6,7 @@ const loginValidation = (req: Request, res: Response, next: NextFunction) => {
   if (!email || !password) {
     return res.status(400).json({ message: 'All fields must be filled' });
   }
-  const isValidEmail = email.match('/^[w-.]+@([w-]+.)+[w-]{2,4}$/g');
+  const isValidEmail = email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
   if (!isValidEmail) {
     return res.status(400).json({ message: 'Incorrect email or password' });
   }

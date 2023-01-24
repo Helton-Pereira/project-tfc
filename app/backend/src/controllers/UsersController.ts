@@ -16,4 +16,9 @@ const findUser = async (req: Request, res: Response) => {
   // }
 };
 
-export default { findUser };
+const userRole = async (req: Request, res: Response) => {
+  const { role } = req.body.user;
+  res.status(200).json({ role });
+};
+
+export default { findUser, userRole };
