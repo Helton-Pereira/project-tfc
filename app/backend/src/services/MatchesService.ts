@@ -22,18 +22,19 @@ const getMatchesByStatus = async (inProgress: string) => {
     const matches = await Matches.findAll({
       where: { inProgress: true },
       include: [
-        { model: Teams,
-          as: 'homeTeam',
-          attributes: { exclude: ['id'] },
-        },
-        { model: Teams,
-          as: 'awayTeam',
-          attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'homeTeam', attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'awayTeam', attributes: { exclude: ['id'] } },
       ],
     });
     return { status: 200, matches };
   }
-  return { status: 500, message: 'Eita! Deu ruim' };
+  const matches = await Matches.findAll({
+    where: { inProgress: 'false' },
+    include: [
+      { model: Teams, as: 'homeTeam', attributes: { exclude: ['id'] } },
+      { model: Teams, as: 'awayTeam', attributes: { exclude: ['id'] } }],
+  });
+  return { status: 200, matches };
 };
 
 export default { getAllMatches, getMatchesByStatus };
