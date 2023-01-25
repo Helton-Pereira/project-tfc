@@ -6,4 +6,12 @@ const findAllTeams = async (req: Request, res: Response) => {
   return res.status(status).json(teams);
 };
 
-export default { findAllTeams };
+const findOneTeam = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const { status, team } = await TeamsService.findOneTeam(id);
+
+  return res.status(status).json(team);
+};
+
+export default { findAllTeams, findOneTeam };

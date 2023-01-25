@@ -6,4 +6,10 @@ const findAllTeams = async () => {
   return { status: 200, teams };
 };
 
-export default { findAllTeams };
+const findOneTeam = async (id: string | number) => {
+  const team = await Teams.findByPk(id);
+
+  return { status: 200, team };
+};
+
+export default { findAllTeams, findOneTeam };
