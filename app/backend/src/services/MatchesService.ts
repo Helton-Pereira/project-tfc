@@ -17,4 +17,23 @@ const getAllMatches = async () => {
   return { status: 200, matches };
 };
 
-export default { getAllMatches };
+const getMatchesByStatus = async (inProgress: string) => {
+  if (inProgress === 'true') {
+    const matches = await Matches.findAll({
+      where: { inProgress: true },
+      include: [
+        { model: Teams,
+          as: 'homeTeam',
+          attributes: { exclude: ['id'] },
+        },
+        { model: Teams,
+          as: 'awayTeam',
+          attributes: { exclude: ['id'] } },
+      ],
+    });
+    return { status: 200, matches };
+  }
+  return { status: 500, message: 'Eita! Deu ruim' };
+};
+
+export default { getAllMatches, getMatchesByStatus };
