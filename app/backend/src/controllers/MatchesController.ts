@@ -35,4 +35,13 @@ const finishMatch = async (req: Request, res: Response) => {
   return res.status(status).json({ message });
 };
 
-export default { getAllMatches, insertMatch, finishMatch };
+const updateMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+
+  const { status, message } = await MatchesService.updateMatch(id, homeTeamGoals, awayTeamGoals);
+
+  return res.status(status).json({ message });
+};
+
+export default { getAllMatches, insertMatch, finishMatch, updateMatch };

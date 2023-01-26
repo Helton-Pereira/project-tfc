@@ -65,4 +65,14 @@ const finishMatch = async (id: number | string) => {
   return { status: 200, message: 'Finished' };
 };
 
-export default { getAllMatches, getMatchesByStatus, insertMatch, finishMatch };
+const updateMatch = async (
+  id: number | string,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+  return { status: 200, message: 'Updated' };
+};
+
+export default { getAllMatches, getMatchesByStatus, insertMatch, finishMatch, updateMatch };
