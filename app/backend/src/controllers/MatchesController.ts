@@ -13,4 +13,26 @@ const getAllMatches = async (req: Request, res: Response) => {
   return res.status(status).json(matches);
 };
 
-export default { getAllMatches };
+const insertMatch = async (req: Request, res: Response) => {
+  const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
+
+  const result = await MatchesService
+    .insertMatch(homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals);
+
+  if (result.status !== 201) {
+    return res.status(result.status).json({ message: result.message,
+    });
+  }
+
+  return res.status(result.status).json(result.message);
+};
+
+const finishMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const { status, message } = await MatchesService.finishMatch(id);
+
+  return res.status(status).json({ message });
+};
+
+export default { getAllMatches, insertMatch, finishMatch };

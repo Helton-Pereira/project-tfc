@@ -37,4 +37,32 @@ const getMatchesByStatus = async (inProgress: string) => {
   return { status: 200, matches };
 };
 
-export default { getAllMatches, getMatchesByStatus };
+const insertMatch = async (
+  homeTeamId: number,
+  awayTeamId: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  const homeTeam = await Matches.findByPk(homeTeamId);
+  const awayTeam = await Matches.findByPk(awayTeamId);
+
+  if (!homeTeam || !awayTeam) {
+    return { status: 404, message: 'There is no team with such id!' };
+  }
+
+  const createdMatch = await Matches.create({
+    homeTeamId,
+    homeTeamGoals,
+    awayTeamId,
+    awayTeamGoals,
+    inProgress: true });
+  return { status: 201, message: createdMatch };
+};
+
+const finishMatch = async (id: number | string) => {
+  await Matches.update({ inProgress: false }, { where: { id } });
+
+  return { status: 200, message: 'Finished' };
+};
+
+export default { getAllMatches, getMatchesByStatus, insertMatch, finishMatch };
