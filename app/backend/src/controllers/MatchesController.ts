@@ -17,7 +17,7 @@ const insertMatch = async (req: Request, res: Response) => {
   const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
 
   const result = await MatchesService
-    .insertMatch(homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals);
+    .insertMatch(homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals);
 
   if (result.status !== 201) {
     return res.status(result.status).json({ message: result.message,

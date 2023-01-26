@@ -21,6 +21,7 @@ Matches.init({
   homeTeamId: {
     type: INTEGER,
     allowNull: false,
+    field: 'home_team_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -29,10 +30,12 @@ Matches.init({
   homeTeamGoals: {
     type: INTEGER,
     allowNull: false,
+    field: 'home_team_goals',
   },
   awayTeamId: {
     type: INTEGER,
     allowNull: false,
+    field: 'away_team_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -41,10 +44,12 @@ Matches.init({
   awayTeamGoals: {
     type: INTEGER,
     allowNull: false,
+    field: 'away_team_goals',
   },
   inProgress: {
     type: BOOLEAN,
     allowNull: false,
+    field: 'in_progress',
   },
 }, {
   sequelize: db,
